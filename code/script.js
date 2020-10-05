@@ -6,6 +6,8 @@ const titleElement = document.getElementById("title")
 const sortButtonElement = document.getElementById("sortButton")
 const filterButtonElement = document.getElementById("filterButton")
 
+let myRestaurants
+
 fetch(apiUrl, { headers: { "user-key": apiKey } })
   .then(response => response.json())
   .then(json => {
@@ -28,35 +30,32 @@ fetch(apiUrl, { headers: { "user-key": apiKey } })
       return { name, dollar, rating, photo }
     })
 
-    const displayRestaurants = restaurants => {
-      restaurantListElement.innerHTML = ""
-      restaurants.forEach(restaurant => {
-        restaurantListElement.innerHTML += generateHTML(restaurant)
-      })
-
-    }
     displayRestaurants(myRestaurants)
-
-    const sortRestaurants = () => {
-      displayRestaurants(myRestaurants.sort(function (a, b) { return b.rating - a.rating }))
-    }
-    sortButtonElement.addEventListener("click", sortRestaurants)
-
-    const filterRestaurants = () => {
-      displayRestaurants(myRestaurants.filter(function check(item) { return item.dollar === "$" }))
-    }
-    filterButtonElement.addEventListener("click", filterRestaurants)
-
-    const resetRestaurants = () => {
-      displayRestaurants(myRestaurants)
-    }
-    titleElement.addEventListener("click", resetRestaurants)
   })
+
+const displayRestaurants = restaurants => {
+  restaurantListElement.innerHTML = ""
+  restaurants.forEach(restaurant => {
+    restaurantListElement.innerHTML += generateHTML(restaurant)
+  })
+}
+
+const sortRestaurants = () => {
+  displayRestaurants(myRestaurants.sort(function (a, b) { return b.rating - a.rating }))
+}
+
+const filterRestaurants = () => {
+  displayRestaurants(myRestaurants.filter(function check(item) { return item.dollar === "$" }))
+}
+
+const resetRestaurants = () => {
+  displayRestaurants(myRestaurants)
+}
 
 const generateHTML = restaurant => {
   let restaurantHTML = ""
   restaurantHTML += `<li class="restaurant">`
-  restaurantHTML += `<img src=${restaurant.photo}>`
+  restaurantHTML += `<img src=${restaurant.photo} alt="Restaurant image">`
   restaurantHTML += `<h3>${restaurant.name}</h3>`
   restaurantHTML += `<div class="restaurant-footer">`
   restaurantHTML += `<p>${restaurant.dollar}</p>`
@@ -66,5 +65,8 @@ const generateHTML = restaurant => {
   return restaurantHTML
 }
 
+sortButtonElement.addEventListener("click", sortRestaurants)
+filterButtonElement.addEventListener("click", filterRestaurants)
+titleElement.addEventListener("click", resetRestaurants)
 
 
