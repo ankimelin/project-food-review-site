@@ -7,7 +7,7 @@ body {
 
 header {
   height: 70px;
-  margin: auto 32px;
+  margin: 0 32px;
   display: flex;
   align-items: center;
 }
@@ -35,7 +35,7 @@ button {
   font-size: 14px;
 }
 
-button:hover {
+button:hover, button:focus {
   color: rgb(12, 190, 173);
   cursor: pointer;
 }
@@ -46,7 +46,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: auto 32px;
+  margin: 0 32px;
 }
 
 h2 {
@@ -55,7 +55,7 @@ h2 {
 }
 
 .restaurant-container {
-  margin: auto 32px 20px 32px;
+  margin: 10px 32px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -64,9 +64,9 @@ h2 {
 .restaurant {
   width: 100%;
   height: auto;
-  margin-top: 20px;
   border: 1px solid rgba(32,33,37,0.12);
   border-radius: 8px;
+  margin: 10px 0;
 }
 
 .restaurant:hover {
@@ -132,7 +132,13 @@ footer {
 }
 
 @media (min-width: 1300px) {
-  body {
+  header, .sub-header, footer {
+    margin: 0 200px;
+  }
+  .button-container {
     padding: 0 200px;
+  }
+  .restaurant-container {
+    margin: 10px 200px;
   }
 }

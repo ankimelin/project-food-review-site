@@ -31,6 +31,19 @@ fetch(apiUrl, { headers: { "user-key": apiKey } })
     })
 
     displayRestaurants(myRestaurants)
+    const sortRestaurants = () => {
+      displayRestaurants(myRestaurants.sort(function (a, b) { return b.rating - a.rating }))
+    }
+    const filterRestaurants = () => {
+      displayRestaurants(myRestaurants.filter(function check(item) { return item.dollar === "$" }))
+    }
+    const resetRestaurants = () => {
+      displayRestaurants(myRestaurants)
+    }
+
+    sortButtonElement.addEventListener("click", sortRestaurants)
+    filterButtonElement.addEventListener("click", filterRestaurants)
+    titleElement.addEventListener("click", resetRestaurants)
   })
 
 const displayRestaurants = restaurants => {
@@ -38,18 +51,6 @@ const displayRestaurants = restaurants => {
   restaurants.forEach(restaurant => {
     restaurantListElement.innerHTML += generateHTML(restaurant)
   })
-}
-
-const sortRestaurants = () => {
-  displayRestaurants(myRestaurants.sort(function (a, b) { return b.rating - a.rating }))
-}
-
-const filterRestaurants = () => {
-  displayRestaurants(myRestaurants.filter(function check(item) { return item.dollar === "$" }))
-}
-
-const resetRestaurants = () => {
-  displayRestaurants(myRestaurants)
 }
 
 const generateHTML = restaurant => {
@@ -65,8 +66,6 @@ const generateHTML = restaurant => {
   return restaurantHTML
 }
 
-sortButtonElement.addEventListener("click", sortRestaurants)
-filterButtonElement.addEventListener("click", filterRestaurants)
-titleElement.addEventListener("click", resetRestaurants)
+
 
 
